@@ -1,0 +1,19 @@
+auto-butcher-timer-ticks: 18000
+
+interact-item-id: 296
+
+modifier:
+  speed: 0.15
+  jump: 0.42
+
+immunity:
+  fall: false
+  fire: false
+  drown: false
+
+saddle:
+  spawn: false
+  return: true
+
+misc:
+  play-animation: true
