@@ -2,6 +2,7 @@ package io.github.aleksandarharalanov.smartride.core;
 
 import io.github.aleksandarharalanov.smartride.command.SmartRideCommand;
 import io.github.aleksandarharalanov.smartride.core.handler.CustomPigButcherer;
+import io.github.aleksandarharalanov.smartride.listener.EntitySpawnListener;
 import io.github.aleksandarharalanov.smartride.listener.player.PlayerInteractListener;
 import io.github.aleksandarharalanov.smartride.listener.vehicle.VehicleIOListener;
 import io.github.aleksandarharalanov.smartride.util.config.ConfigUtil;
@@ -33,6 +34,9 @@ public class SmartRides extends JavaPlugin {
         final VehicleIOListener vIOL = new VehicleIOListener();
         pM.registerEvent(Event.Type.VEHICLE_ENTER, vIOL, Event.Priority.Lowest, this);
         pM.registerEvent(Event.Type.VEHICLE_EXIT, vIOL, Event.Priority.Lowest, this);
+
+        final EntitySpawnListener eSL = new EntitySpawnListener();
+        pM.registerEvent(Event.Type.CREATURE_SPAWN, eSL, Event.Priority.Lowest, this);
 
         final SmartRideCommand command = new SmartRideCommand(this);
         getCommand("smartride").setExecutor(command);
