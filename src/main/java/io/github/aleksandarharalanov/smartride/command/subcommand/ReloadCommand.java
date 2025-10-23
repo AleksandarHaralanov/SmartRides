@@ -1,6 +1,6 @@
 package io.github.aleksandarharalanov.smartride.command.subcommand;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 import io.github.aleksandarharalanov.smartride.core.handler.CustomPigButcherer;
 import io.github.aleksandarharalanov.smartride.util.auth.AccessUtil;
 import io.github.aleksandarharalanov.smartride.util.log.LogUtil;
@@ -15,16 +15,16 @@ public final class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!AccessUtil.senderHasPermission(sender, "hogrider.staff",
-                "[SmartRide] You don't have permission to reload the config.")) {
+                "[SmartRides] You don't have permission to reload the config.")) {
             return true;
         }
 
         if (sender instanceof Player) {
-            sender.sendMessage(ColorUtil.translateColorCodes("&a[SmartRide] Configurations reloaded."));
+            sender.sendMessage(ColorUtil.translateColorCodes("&a[SmartRides] Configurations reloaded."));
         }
-        LogUtil.logConsoleInfo("[SmartRide] Configurations reloaded.");
+        LogUtil.logConsoleInfo("[SmartRides] Configurations reloaded.");
 
-        SmartRide.getConfig().loadAndLog();
+        SmartRides.getConfig().loadAndLog();
         CustomPigButcherer.startButcherTask();
 
         return true;

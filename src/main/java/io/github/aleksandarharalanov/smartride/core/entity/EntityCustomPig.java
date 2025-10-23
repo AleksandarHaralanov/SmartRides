@@ -26,7 +26,7 @@ public class EntityCustomPig extends EntityPig {
             register.setAccessible(true);
             register.invoke(null, EntityCustomPig.class, "CustomPig", 90);
         } catch (Exception e) {
-            LogUtil.logConsoleSevere(String.format("[SmartRide] Could not register custom pig entity class: %s", e.getMessage()));
+            LogUtil.logConsoleSevere(String.format("[SmartRides] Could not register custom pig entity class: %s", e.getMessage()));
         }
     }
 

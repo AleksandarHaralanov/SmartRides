@@ -1,48 +1,48 @@
 package io.github.aleksandarharalanov.smartride.core.config;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 
 public final class ConfigManager {
 
     private ConfigManager() {}
 
     public static boolean playAnimation() {
-        return SmartRide.getConfig().getBoolean("misc.play-animation", true);
+        return SmartRides.getConfig().getBoolean("misc.play-animation", true);
     }
 
     public static boolean returnSaddle() {
-        return SmartRide.getConfig().getBoolean("saddle.return", true);
+        return SmartRides.getConfig().getBoolean("saddle.return", true);
     }
 
     public static boolean spawnSaddle() {
-        return SmartRide.getConfig().getBoolean("saddle.spawn", false);
+        return SmartRides.getConfig().getBoolean("saddle.spawn", false);
     }
 
     public static boolean immunityFall() {
-        return SmartRide.getConfig().getBoolean("immunity.fall", false);
+        return SmartRides.getConfig().getBoolean("immunity.fall", false);
     }
 
     public static boolean immunityFire() {
-        return SmartRide.getConfig().getBoolean("immunity.fire", false);
+        return SmartRides.getConfig().getBoolean("immunity.fire", false);
     }
 
     public static boolean immunityDrown() {
-        return SmartRide.getConfig().getBoolean("immunity.drown", false);
+        return SmartRides.getConfig().getBoolean("immunity.drown", false);
     }
 
     public static double modifierSpeed() {
-        return SmartRide.getConfig().getDouble("modifier.speed", 0.15F);
+        return SmartRides.getConfig().getDouble("modifier.speed", 0.15F);
     }
 
     public static double modifierJump() {
-        return SmartRide.getConfig().getDouble("modifier.jump", 0.42F);
+        return SmartRides.getConfig().getDouble("modifier.jump", 0.42F);
     }
 
     public static long autoButcherTimerTicks() {
-        return SmartRide.getConfig().getInt("auto-butcher-timer-ticks", 18000);
+        return SmartRides.getConfig().getInt("auto-butcher-timer-ticks", 18000);
     }
 
     public static int interactItemId() {
-        return SmartRide.getConfig().getInt("interact-item-id", 296);
+        return SmartRides.getConfig().getInt("interact-item-id", 296);
     }
 }

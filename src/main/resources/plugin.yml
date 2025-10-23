@@ -1,13 +1,13 @@
-main: io.github.aleksandarharalanov.smartride.core.SmartRide
+main: io.github.aleksandarharalanov.smartride.core.SmartRides
 version: 1.0.0-rc.1
-name: SmartRide
+name: SmartRides
 author: Beezle
-website: github.com/AleksandarHaralanov/SmartRide
+website: github.com/AleksandarHaralanov/SmartRides
 description: Allows for full control over pig riding.
 
 commands:
   smartride:
-    description: SmartRide main command.
+    description: SmartRides main command.
     usage: /<command>
     aliases: [sr]
 
@@ -16,7 +16,7 @@ permissions:
     children:
       smartride.summon: true
       smartride.staff: true
-    description: All SmartRide permissions.
+    description: All SmartRides permissions.
     default: op
   smartride.summon:
     description: Allows the player to summon a pig ride.

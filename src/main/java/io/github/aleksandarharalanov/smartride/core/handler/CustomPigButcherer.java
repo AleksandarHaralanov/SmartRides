@@ -1,6 +1,6 @@
 package io.github.aleksandarharalanov.smartride.core.handler;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 import io.github.aleksandarharalanov.smartride.core.config.ConfigManager;
 import io.github.aleksandarharalanov.smartride.core.entity.EntityCustomPig;
 import io.github.aleksandarharalanov.smartride.util.log.LogUtil;
@@ -24,12 +24,12 @@ public final class CustomPigButcherer {
 
         long timer = ConfigManager.autoButcherTimerTicks();
         if (timer <= 0) {
-            LogUtil.logConsoleWarning("[SmartRide] Invalid automatic butcher timer in config. Defaulting to 18000L ticks.");
+            LogUtil.logConsoleWarning("[SmartRides] Invalid automatic butcher timer in config. Defaulting to 18000L ticks.");
             timer = 18000L;
         }
 
-        butcherTaskId = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SmartRide.getInstance(), () -> {
-            LogUtil.logConsoleInfo("[SmartRide] Beginning automatic ride butcher task.");
+        butcherTaskId = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SmartRides.getInstance(), () -> {
+            LogUtil.logConsoleInfo("[SmartRides] Beginning automatic ride butcher task.");
             butcher(null);
         }, 0L, timer);
     }
@@ -47,10 +47,10 @@ public final class CustomPigButcherer {
             }
             CustomPigManager.removeActiveRides();
 
-            LogUtil.logConsoleInfo(String.format("[SmartRide] Butchered %d ride(s) in '%s'.", count, world.getName()));
+            LogUtil.logConsoleInfo(String.format("[SmartRides] Butchered %d ride(s) in '%s'.", count, world.getName()));
             if (sender instanceof Player) {
                 sender.sendMessage(ColorUtil.translateColorCodes(String.format(
-                        "&e[SmartRide] Butchered %d ride(s) in '%s'.", count, world.getName()
+                        "&e[SmartRides] Butchered %d ride(s) in '%s'.", count, world.getName()
                 )));
             }
         });

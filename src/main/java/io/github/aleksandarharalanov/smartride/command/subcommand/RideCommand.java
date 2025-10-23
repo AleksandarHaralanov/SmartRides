@@ -16,7 +16,7 @@ public final class RideCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (AccessUtil.denyIfNotPlayer(sender, null)) return true;
         if (!AccessUtil.senderHasPermission(sender, "hogrider.ride",
-                "[SmartRide] You don't have permission to summon a ride.")) {
+                "[SmartRides] You don't have permission to summon a ride.")) {
             return true;
         }
 
@@ -27,10 +27,10 @@ public final class RideCommand implements CommandExecutor {
                 activeRide.getBukkitEntity().remove();
                 CustomPigManager.removeRide(player);
             }
-            player.sendMessage(ColorUtil.translateColorCodes("&e[SmartRide] Previous ride removed."));
+            player.sendMessage(ColorUtil.translateColorCodes("&e[SmartRides] Previous ride removed."));
         }
         CustomPigSpawner.spawn(player);
-        player.sendMessage(ColorUtil.translateColorCodes("&a[SmartRide] Ride summoned."));
+        player.sendMessage(ColorUtil.translateColorCodes("&a[SmartRides] Ride summoned."));
 
         return true;
     }

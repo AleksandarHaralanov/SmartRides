@@ -1,6 +1,6 @@
 package io.github.aleksandarharalanov.smartride.command;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 import io.github.aleksandarharalanov.smartride.command.subcommand.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,7 +13,7 @@ public final class SmartRideCommand implements CommandExecutor {
 
     private final Map<String, CommandExecutor> subcommands = new HashMap<>();
 
-    public SmartRideCommand(SmartRide plugin) {
+    public SmartRideCommand(SmartRides plugin) {
         subcommands.put("about", new AboutCommand(plugin));
         subcommands.put("butcher", new ButcherCommand());
         subcommands.put("reload", new ReloadCommand());

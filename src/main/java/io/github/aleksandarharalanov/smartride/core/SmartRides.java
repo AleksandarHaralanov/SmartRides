@@ -11,10 +11,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import io.github.aleksandarharalanov.smartride.util.log.LogUtil;
 
-public class SmartRide extends JavaPlugin {
+public class SmartRides extends JavaPlugin {
 
     private static ConfigUtil config;
-    private static SmartRide plugin;
+    private static SmartRides plugin;
 
     @Override
     public void onEnable() {
@@ -48,7 +48,7 @@ public class SmartRide extends JavaPlugin {
         LogUtil.logConsoleInfo(String.format("[%s] v%s Disabled.", getDescription().getName(), getDescription().getVersion()));
     }
 
-    public static SmartRide getInstance() {
+    public static SmartRides getInstance() {
         return plugin;
     }
 

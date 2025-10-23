@@ -11,10 +11,10 @@ public final class HelpCommand {
         String[] messages = {
                 "&bSmartRide commands:",
                 "&e/sr &7- Displays this content.",
-                "&e/sr about &7- About SmartRide.",
+                "&e/sr about &7- About SmartRides.",
                 "&e/sr ride &7 - Summons your pig ride.",
                 "&bSmartRide staff commands:",
-                "&e/sr reload &7- Reload SmartRide config.",
+                "&e/sr reload &7- Reload SmartRides config.",
                 "&e/sr butcher &7- Butcher all active rides."
         };
 

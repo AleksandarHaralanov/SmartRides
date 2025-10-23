@@ -1,6 +1,6 @@
 package io.github.aleksandarharalanov.smartride.command.subcommand;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 import io.github.aleksandarharalanov.smartride.util.misc.AboutUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,9 +11,9 @@ import java.util.List;
 
 public final class AboutCommand implements CommandExecutor {
 
-    private final SmartRide plugin;
+    private final SmartRides plugin;
 
-    public AboutCommand(SmartRide plugin) {
+    public AboutCommand(SmartRides plugin) {
         this.plugin = plugin;
     }
 

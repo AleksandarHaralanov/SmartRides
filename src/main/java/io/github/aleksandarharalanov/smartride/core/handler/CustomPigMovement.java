@@ -1,6 +1,6 @@
 package io.github.aleksandarharalanov.smartride.core.handler;
 
-import io.github.aleksandarharalanov.smartride.core.SmartRide;
+import io.github.aleksandarharalanov.smartride.core.SmartRides;
 import io.github.aleksandarharalanov.smartride.core.entity.EntityCustomPig;
 import io.github.aleksandarharalanov.smartride.core.validation.EntityValidator;
 import org.bukkit.Bukkit;
@@ -31,7 +31,7 @@ public final class CustomPigMovement {
     public static void startMovementTask(Player player, EntityCustomPig customPig) {
         stopMovementTask(player);
 
-        int taskId = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SmartRide.getInstance(), () -> {
+        int taskId = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SmartRides.getInstance(), () -> {
             if (!player.isOnline() || EntityValidator.getCustomPig(player) == null) {
                 stopMovementTask(player);
                 movementEnabled.remove(player);

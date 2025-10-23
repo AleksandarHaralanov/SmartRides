@@ -11,7 +11,7 @@ public final class ButcherCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!AccessUtil.senderHasPermission(sender, "hogrider.staff",
-                "[SmartRide] You don't have permission to butcher all rides.")) {
+                "[SmartRides] You don't have permission to butcher all rides.")) {
             return true;
         }
 
