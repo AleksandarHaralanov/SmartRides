@@ -4,6 +4,7 @@ import io.github.aleksandarharalanov.smartride.core.config.ConfigManager;
 import io.github.aleksandarharalanov.smartride.util.log.LogUtil;
 import net.minecraft.server.*;
 import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -20,6 +21,9 @@ public class EntityCustomPig extends EntityPig {
 
     private String riderName;
 
+    private Vector targetDirection = new Vector(0, 0, 0);
+    private int jumpCooldown = 0;
+
     static {
         try {
             Method register = EntityTypes.class.getDeclaredMethod("a", Class.class, String.class, int.class);
@@ -34,12 +38,51 @@ public class EntityCustomPig extends EntityPig {
         super(world);
     }
 
+    private long ticksAlive = 0;
+
     @Override
     protected void c_() {
         ++this.ay;
-        this.U();
-        if (!hasSaddle() || this.passenger == null)
+
+        if (!hasSaddle() || this.passenger == null) {
             super.c_();
+            this.U();
+            return;
+        }
+
+        ++ticksAlive;
+
+        Player ply = null;
+        if (passenger.getBukkitEntity() instanceof Player) {
+            ply = (Player) passenger.getBukkitEntity();
+            if (ply.getInventory().getItemInHand().getTypeId() == Item.WHEAT.id) {
+                if (ticksAlive % 3 == 0) {
+                    updateMovementInput(ply);
+                }
+            } else {
+                targetDirection.zero();
+            }
+        }
+
+        // apply motion toward target direction
+        double lerpFactor = this.onGround ? 0.3D : 0.1D;
+        this.motX += (targetDirection.getX() - this.motX) * lerpFactor;
+        this.motZ += (targetDirection.getZ() - this.motZ) * lerpFactor;
+
+        this.motX *= this.onGround ? 0.91D : 0.98D;
+        this.motZ *= this.onGround ? 0.91D : 0.98D;
+
+        // rotate pig to face player yaw
+        if (ply != null) {
+            this.yaw += wrapAngle((ply.getLocation().getYaw() - this.yaw)) * 0.3F;
+            this.pitch = ply.getLocation().getPitch() * 0.5F;
+        }
+    }
+
+    private float wrapAngle(float angle) {
+        while (angle <= -180.0F) angle += 360.0F;
+        while (angle > 180.0F) angle -= 360.0F;
+        return angle;
     }
 
     @Override
@@ -95,13 +138,12 @@ public class EntityCustomPig extends EntityPig {
 
     @Override
     public void v() {
-        if (this.ad() || this.ae()) {
-            this.motY += 0.04F;
-        }
+        if (jumpCooldown > 0) jumpCooldown--;
 
         if (this.passenger instanceof EntityHuman) {
-            if (this.onGround && isBumpingIntoBlock()) {
+            if (this.onGround && isBumpingIntoBlock() && jumpCooldown == 0) {
                 this.O();
+                jumpCooldown = 10; // prevent spam jumping
             }
         }
 
@@ -129,21 +171,33 @@ public class EntityCustomPig extends EntityPig {
 
     public void setPathToLookDirection(Vector direction) {
         if (direction == null) {
-            this.motX = 0F;
-            this.motY = 0F;
-            this.motZ = 0F;
+            targetDirection.setX(0);
+            targetDirection.setZ(0);
             return;
         }
 
         double moveSpeed = ConfigManager.modifierSpeed();
-        if (this.ad() || this.ae()) {
-            moveSpeed *= 0.15F;
+        if (this.ad() || this.ae()) moveSpeed *= 0.15F;
+
+        // Normalize direction to prevent speed scaling by look magnitude
+        direction.normalize();
+        targetDirection.setX(direction.getX() * moveSpeed);
+        targetDirection.setZ(direction.getZ() * moveSpeed);
+    }
+
+    private void updateMovementInput(Player ply) {
+        Vector dir = ply.getEyeLocation().getDirection();
+        if (dir == null) {
+            targetDirection.zero();
+            return;
         }
 
-        this.motX = direction.getX() * moveSpeed;
-        this.motZ = direction.getZ() * moveSpeed;
+        double moveSpeed = ConfigManager.modifierSpeed();
+        if (this.ad() || this.ae()) moveSpeed *= 0.15F;
 
-        this.yaw = (float) Math.toDegrees(Math.atan2(-this.motX, this.motZ));
+        dir.normalize();
+        targetDirection.setX(dir.getX() * moveSpeed);
+        targetDirection.setZ(dir.getZ() * moveSpeed);
     }
 
     public void setRiderName(String riderName) {
