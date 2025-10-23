@@ -38,6 +38,8 @@ public class EntityCustomPig extends EntityPig {
     protected void c_() {
         ++this.ay;
         this.U();
+        if (!hasSaddle() || this.passenger == null)
+            super.c_();
     }
 
     @Override

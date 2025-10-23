@@ -13,17 +13,21 @@ public final class CustomPigSpawner {
 
     public static void spawn(Player player) {
         Location loc = player.getLocation();
+        EntityCustomPig customPig = new EntityCustomPig(((CraftWorld)loc.getWorld()).getHandle());
+        spawnAtLocation(customPig, loc);
+        CustomPigManager.addRide(player, customPig);
+    }
+
+    public static void spawnAtLocation(EntityCustomPig customPig, Location loc)
+    {
         CraftWorld craftWorld = (CraftWorld) loc.getWorld();
         World nmsWorld = craftWorld.getHandle();
-        EntityCustomPig customPig = new EntityCustomPig(nmsWorld);
 
         if (ConfigManager.spawnSaddle()) {
             customPig.setSaddle(true);
         }
 
         customPig.setLocation(loc.getX(), loc.getY(), loc.getZ(), 0, 0);
-
         nmsWorld.addEntity(customPig);
-        CustomPigManager.addRide(player, customPig);
     }
 }
