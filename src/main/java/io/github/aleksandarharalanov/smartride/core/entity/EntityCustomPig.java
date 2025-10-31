@@ -4,6 +4,7 @@ import io.github.aleksandarharalanov.smartride.core.config.ConfigManager;
 import io.github.aleksandarharalanov.smartride.util.log.LogUtil;
 import net.minecraft.server.*;
 import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -19,6 +20,7 @@ public class EntityCustomPig extends EntityPig {
     ));
 
     private String riderName;
+    private Player riderHandle;
 
     static {
         try {
@@ -146,11 +148,23 @@ public class EntityCustomPig extends EntityPig {
         this.yaw = (float) Math.toDegrees(Math.atan2(-this.motX, this.motZ));
     }
 
+    public void setRiderHandle(Player player)
+    {
+        this.riderHandle = player;
+        setRiderName(player.getName());
+    }
+
     public void setRiderName(String riderName) {
         this.riderName = riderName;
     }
 
+    public void eject()
+    {
+        riderHandle = null;
+        riderName = null;
+    }
+
     public String getRiderName() {
-        return this.riderName;
+        return (this.riderName == null) ? ((riderHandle == null) ? "" : riderHandle.getName()) : this.riderName;
     }
 }
