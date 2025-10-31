@@ -41,8 +41,6 @@ public class SmartRides extends JavaPlugin {
         final SmartRideCommand command = new SmartRideCommand(this);
         getCommand("smartride").setExecutor(command);
 
-        CustomPigButcherer.startButcherTask();
-
         LogUtil.logConsoleInfo(String.format("[%s] v%s Enabled.", getDescription().getName(), getDescription().getVersion()));
     }
 
