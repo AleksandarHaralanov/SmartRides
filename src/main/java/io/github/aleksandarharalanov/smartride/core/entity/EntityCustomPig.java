@@ -52,11 +52,22 @@ public class EntityCustomPig extends EntityPig {
         return 0;
     }
 
+    private int j2_meatDrops()
+    {
+        return this.fireTicks > 0 ? Item.GRILLED_PORK.id : Item.PORK.id;
+    }
+
     @Override
     protected void q() {
         List<ItemStack> loot = new ArrayList<>();
         if (this.j() == Item.SADDLE.id) {
             loot.add(new ItemStack(this.j(), 1));
+        }
+
+        int i = this.j2_meatDrops();
+        int count = this.random.nextInt(3);
+        if (i > 0 && count > 0) {
+            loot.add(new ItemStack(i, count));
         }
 
         CraftEntity entity = (CraftEntity) this.getBukkitEntity();
@@ -108,6 +119,11 @@ public class EntityCustomPig extends EntityPig {
         }
 
         super.v();
+    }
+
+    @Override
+    public void a(EntityWeatherStorm entityweatherstorm) {
+        super.a(entityweatherstorm);
     }
 
     private boolean isBumpingIntoBlock() {
