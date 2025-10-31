@@ -13,7 +13,7 @@ public class EntitySpawnListener extends EntityListener
     public void onCreatureSpawn(CreatureSpawnEvent event)
     {
         // only pigs, and only natural spawns
-        if (event.getCreatureType() == CreatureType.PIG && event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL)
+        if (event.getCreatureType() == CreatureType.PIG && (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER))
         {
             Location spawnLoc = event.getLocation(); // get location where pig should have spawned
             event.setCancelled(true); // cancel the original spawn

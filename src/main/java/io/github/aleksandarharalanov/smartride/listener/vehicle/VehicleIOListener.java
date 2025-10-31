@@ -1,6 +1,7 @@
 package io.github.aleksandarharalanov.smartride.listener.vehicle;
 
 import io.github.aleksandarharalanov.smartride.core.animation.PlayerAnimator;
+import io.github.aleksandarharalanov.smartride.core.entity.EntityCustomPig;
 import io.github.aleksandarharalanov.smartride.core.validation.EntityValidator;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
@@ -16,7 +17,7 @@ public final class VehicleIOListener extends VehicleListener {
         if (!EntityValidator.isValidCustomPigVehicle(vehicle)) return;
 
         Player player = (Player) event.getEntered();
-        player.sendMessage("Fired.");
+        ((EntityCustomPig)vehicle).setRiderHandle(player);
         PlayerAnimator.playArmSwingAnimation(player);
     }
 
@@ -26,6 +27,7 @@ public final class VehicleIOListener extends VehicleListener {
         if (!EntityValidator.isValidCustomPigVehicle(vehicle)) return;
 
         Player player = (Player) event.getExited();
+        ((EntityCustomPig)vehicle).eject();
         PlayerAnimator.playArmSwingAnimation(player);
     }
 }

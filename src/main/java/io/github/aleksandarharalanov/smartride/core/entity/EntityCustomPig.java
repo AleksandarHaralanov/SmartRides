@@ -20,6 +20,7 @@ public class EntityCustomPig extends EntityPig {
     ));
 
     private String riderName;
+    private Player riderHandle;
 
     private Vector targetDirection = new Vector(0, 0, 0);
     private int jumpCooldown = 0;
@@ -93,11 +94,22 @@ public class EntityCustomPig extends EntityPig {
         return 0;
     }
 
+    private int j2_meatDrops()
+    {
+        return this.fireTicks > 0 ? Item.GRILLED_PORK.id : Item.PORK.id;
+    }
+
     @Override
     protected void q() {
         List<ItemStack> loot = new ArrayList<>();
         if (this.j() == Item.SADDLE.id) {
             loot.add(new ItemStack(this.j(), 1));
+        }
+
+        int i = this.j2_meatDrops();
+        int count = this.random.nextInt(3);
+        if (i > 0 && count > 0) {
+            loot.add(new ItemStack(i, count));
         }
 
         CraftEntity entity = (CraftEntity) this.getBukkitEntity();
@@ -150,6 +162,11 @@ public class EntityCustomPig extends EntityPig {
         super.v();
     }
 
+    @Override
+    public void a(EntityWeatherStorm entityweatherstorm) {
+        super.a(entityweatherstorm);
+    }
+
     private boolean isBumpingIntoBlock() {
         float yawRadians = (float) Math.toRadians(this.yaw);
         int dx = (int) Math.round(-Math.sin(yawRadians));
@@ -200,11 +217,23 @@ public class EntityCustomPig extends EntityPig {
         targetDirection.setZ(dir.getZ() * moveSpeed);
     }
 
+    public void setRiderHandle(Player player)
+    {
+        this.riderHandle = player;
+        setRiderName(player.getName());
+    }
+
     public void setRiderName(String riderName) {
         this.riderName = riderName;
     }
 
+    public void eject()
+    {
+        riderHandle = null;
+        riderName = null;
+    }
+
     public String getRiderName() {
-        return this.riderName;
+        return (this.riderName == null) ? ((riderHandle == null) ? "" : riderHandle.getName()) : this.riderName;
     }
 }
